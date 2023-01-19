@@ -9,7 +9,7 @@ pipeline {
         stage("SCM Checkout") {
             steps {
                 git branch: 'develop',
-                    credentialsId: "DR-RK-GIT",            
+                    credentialsId: "DR_GIT_KEY",            
                     url: 'https://github.com/devrabbititsol/soft_web_aggregator.git'
                 dir("soft_iac") {
                     git branch: "main",
