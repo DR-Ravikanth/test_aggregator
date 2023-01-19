@@ -1,0 +1,2 @@
+[JenkinsServers]
+3.111.85.73 ansible_user=ubuntu

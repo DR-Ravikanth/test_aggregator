@@ -1,0 +1,18 @@
+---
+- name: Code pull and build the application on jenkins
+  hosts: all
+  become: yes
+  gather_facts: false
+  vars_files:
+    - "./config/{{ apps_env }}/extra_vars.yml"
+  
+  roles:     
+   - role: synch
+     tags:
+      - copy_files
+   - role: service
+     tags:
+      - restart_service
+   
+   
+    

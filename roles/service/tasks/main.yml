@@ -1,0 +1,5 @@
+- name: Restart the apache service
+  become: true
+  shell: "systemctl restart apache2"
+  tags:
+    - restart_service
