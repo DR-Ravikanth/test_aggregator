@@ -1,4 +1,4 @@
 [JenkinsServers]
 3.111.85.73 ansible_user=ubuntu
 [SoftAppServer]
-43.204.108.131 ansible_user=ubuntu
+13.127.107.0 ansible_user=ubuntu

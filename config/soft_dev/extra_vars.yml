@@ -1,2 +1,2 @@
-src_dir: "/var/lib/jenkins/workspace/SOFT/APPS/DEV/DEV-SOFT-AGGREGATOR/"
+src_dir: "/var/lib/jenkins/workspace/ravi/"
 dest_dir: "/devapps/softapps/aggregator"

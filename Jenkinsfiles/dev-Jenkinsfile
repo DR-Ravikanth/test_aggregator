@@ -9,11 +9,11 @@ pipeline {
         stage("SCM Checkout") {
             steps {
                 git branch: 'develop',
-                    credentialsId: "DR_GIT_KEY",            
+                    credentialsId: "DR-RK-GIT",            
                     url: 'https://github.com/devrabbititsol/soft_web_aggregator.git'
                 dir("soft_iac") {
                     git branch: "main",
-                    credentialsId: "DR_GIT_KEY",
+                    credentialsId: "DR-RK-GIT",
                     url: 'https://github.com/DR-Ravikanth/test_aggregator.git'
                 }
             }  
@@ -25,9 +25,11 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {                
+            steps {  
+                withAWS(credentials: 'ravi-aws-ec2')
+                {                
                 ansiblePlaybook become: true, 
-                credentialsId: 'SOFT_AWS_EC2',
+                credentialsId: 'ravi-aws-creds',
                 disableHostKeyChecking: true,
                 extras: "-e apps_env=${env.apps_infra_env}",  
                 installation: 'ansible', 
