@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    environment
+	{
+		apps_infra_env = "soft_dev"
+        
+	}
+    stages {                
+        stage("SCM Checkout") {
+            steps {
+                git branch: 'develop',
+                    credentialsId: "DR_GIT_KEY",            
+                    url: 'https://github.com/devrabbititsol/soft_web_aggregator.git'
+                dir("soft_iac") {
+                    git branch: "master",
+                    credentialsId: "DR_GIT_KEY",
+                    url: 'https://github.com/DR-Ravikanth/test_aggregator.git'
+                }
+            }  
+        }                   	 
+        stage('Build') {
+            steps {                                
+                sh "npm install"
+                sh "npm run build"                    
+            }
+        }
+        stage('Deploy') {
+            steps {                
+                ansiblePlaybook become: true, 
+                credentialsId: 'SOFT_AWS_EC2',
+                disableHostKeyChecking: true,
+                extras: "-e apps_env=${env.apps_infra_env}",  
+                installation: 'ansible', 
+                inventory: 'soft_iac/inventories/dev.inv', 
+                limit: 'SoftAppServer', 
+                playbook: 'soft_iac/appDeploy.yml',
+                tags: 'copy_files, restart_service' 
+            }
+        }        
+    }
+}
