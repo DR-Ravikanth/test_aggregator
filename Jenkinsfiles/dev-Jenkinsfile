@@ -12,7 +12,7 @@ pipeline {
                     credentialsId: "DR_GIT_KEY",            
                     url: 'https://github.com/devrabbititsol/soft_web_aggregator.git'
                 dir("soft_iac") {
-                    git branch: "master",
+                    git branch: "main",
                     credentialsId: "DR_GIT_KEY",
                     url: 'https://github.com/DR-Ravikanth/test_aggregator.git'
                 }
