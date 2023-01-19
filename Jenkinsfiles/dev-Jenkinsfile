@@ -28,16 +28,17 @@ pipeline {
             steps {  
                 withAWS(credentials: 'ravi-aws-ec2')
                 {                
-                ansiblePlaybook become: true, 
-                credentialsId: 'ravi-aws-creds',
-                disableHostKeyChecking: true,
-                extras: "-e apps_env=${env.apps_infra_env}",  
-                installation: 'ansible', 
-                inventory: 'soft_iac/inventories/dev.inv', 
-                limit: 'SoftAppServer', 
-                playbook: 'soft_iac/appDeploy.yml',
-                tags: 'copy_files, restart_service' 
-            }
-        }        
+                    ansiblePlaybook become: true, 
+                    credentialsId: 'ravi-aws-creds',
+                    disableHostKeyChecking: true,
+                    extras: "-e apps_env=${env.apps_infra_env}",  
+                    installation: 'ansible', 
+                    inventory: 'soft_iac/inventories/dev.inv', 
+                    limit: 'SoftAppServer', 
+                    playbook: 'soft_iac/appDeploy.yml',
+                    tags: 'copy_files, restart_service' 
+                }
+            }        
+        }
     }
 }
